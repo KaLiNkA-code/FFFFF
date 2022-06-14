@@ -8,13 +8,14 @@ from FSM.NotificFSM import *
 # from main import cursor
 
 ALL_USERS_BD = [814991257]
-admin_idBD = 81499125
+admin_idBD = 814991257
 ALL_Notif = [11]
 """//////////////////////////////////////////////////////////////////////////////////////////////////////////////////"""
 
 NOTIFICATIONS = {
     'text': ['photo', 'date', 'time']
 }
+
 
 def get_ids_of_users():
     # cursor.execute("SELECT user_id_tg FROM users;")
@@ -31,11 +32,12 @@ async def command_start(message: types.Message):
             await bot.send_message(message.from_user.id, '👨‍🏫')
             await bot.send_message(message.from_user.id, 'Добрый день, это онлайн школа "....". '
                                                          'Пожалуйста, введите свой номер телефона,'
-                                                         ' чтобы продолжить!) \nформат: 89999999999')
+                                                         ' чтобы продолжить!)')
     except Exception:
         await message.reply('Общение с ботом через группы - запрещено!')
 
 """//////////////////////////////////////////////////////////////////////////////////////////////////////////////////"""
+
 
 async def OneTen(message: types.Message):
     if 1 >= int(message.text):
@@ -72,7 +74,19 @@ async def text(message: types.Message):
         elif temp[0] == '8':
             await bot.send_message(message.from_user.id, 'Что то пошло не так( Попробуйте еще раз!')
         else:
-            await bot.send_message(message.from_user.id, 'Что то пошло не так( Попробуйте еще раз')
+            if 1 >= int(message.text):
+                await bot.send_message(message.from_user.id, 'Спасибо за ваш отзыв! \nПостараемся работать лучше!', reply_markup=client_kb.AccountMenu)
+            elif 1 < int(message.text) <= 10:
+                await bot.send_message(message.from_user.id, "Спасибо за ваш отзыв!", reply_markup=client_kb.AccountMenu)
+            elif int(message.text) > 10:
+                temp = 10
+                await bot.send_message(message.from_user.id, "Спасибо за ваш отзыв!", reply_markup=client_kb.AccountMenu)
+            elif 1 > int(message.text):
+                temp = 0
+                await bot.send_message(message.from_user.id, "Спасибо за ваш отзыв! \nПостараемся работать лучше!",
+                                       reply_markup=client_kb.AccountMenu)
+            else:
+                await bot.send_message(message.from_user.id, 'Что то пошло не так( Попробуйте еще раз')
 
 
 async def task():
@@ -91,7 +105,7 @@ async def task():
 def register_handlers_client(dp: Dispatcher):  # Функция регистрации хендлеров
     dp.register_message_handler(command_start, commands=['start'])
 
-    dp.register_message_handler(OneTen, text='Опрос')
+    #  dp.register_message_handler(OneTen, text='Опрос')
 
     dp.register_message_handler(cm_start, text='Регистрация', state=None)
     dp.register_message_handler(cm_start2, state=FSMAdmin.name)
@@ -100,6 +114,7 @@ def register_handlers_client(dp: Dispatcher):  # Функция регистра
 
     dp.register_message_handler(cms_start, text='Рассылка', state=None)
     dp.register_message_handler(cms_start2, state=FSMsAdmin.photo)
+    dp.register_message_handler(cms_start2, state=FSMsAdmin.text)
     dp.register_message_handler(cms_start3, state=FSMsAdmin.date)
     dp.register_message_handler(cms_start4, state=FSMsAdmin.time)
 

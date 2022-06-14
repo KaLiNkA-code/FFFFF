@@ -1,10 +1,10 @@
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
+from aiogram.dispatcher.filters import state
 from aiogram import types
 from create_bot import dp
 from aiogram import Dispatcher
 #  from  import cursor
-
 
 class FSMAdmin(StatesGroup):
     name = State()
@@ -13,29 +13,29 @@ class FSMAdmin(StatesGroup):
 
 
 # @dp.message_handler(commands='Загрузить', state=None)
-async def cm_start(message: types.Message):
+async def cm_start(message: types.Message, state: FSMContext):
     await FSMAdmin.name.set()
     await message.reply('Введите свое имя)')
 
 
 # @dp.message_handler(state=FSMAdmin.name)
-async def cm_start2(message: types.Message):
+async def cm_start2(message: types.Message, state: FSMContext):
     # message.text Сохраняем в бд (Имя)
-    await FSMAdmin.next()
+    await FSMAdmin.mail.set()
     await message.reply("Введите почту")
 
 
 # @dp.message_handler(state=FSMAdmin.mail)
-async def cm_start3(message: types.Message):
+async def cm_start3(message: types.Message, state: FSMContext):
     # message.text Сохраняем в бд (Почта)
-    await FSMAdmin.next()
+    await FSMAdmin.how.set()
     await message.reply("Скажите пожалуйста, как вы узнали об этой школе?")
 
 
 # @dp.message_handler(state=FSMAdmin.how)
-async def cm_start4(message: types.Message):
+async def cm_start4(message: types.Message, state: FSMContext):
     # message.text Сохраняем в бд (Как узнали)
-    await FSMAdmin.first()
+    await state.finish()
     await message.reply("Спасибо, вы зарегистрированы!")
 
 
