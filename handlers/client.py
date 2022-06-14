@@ -69,7 +69,6 @@ async def text(message: types.Message):
         temp = temp.replace('+7', '8')
         if len(temp) == 11 and temp[0] == '8':
             users[message.from_user.id] = [temp]
-            await users[message.from_user.id]
             await bot.send_message(message.from_user.id, 'Все сохранено!)', reply_markup=client_kb.AccountMenu)
 
         elif temp[0] == '8':

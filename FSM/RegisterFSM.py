@@ -30,7 +30,9 @@ async def cm_start(message: types.Message, state: FSMContext):
 # @dp.message_handler(state=FSMAdmin.name)
 async def cm_start2(message: types.Message, state: FSMContext):
     # message.text Сохраняем в бд (Имя)
-    users[message.from_user.id] = [message.text]
+    temp = users[message.from_user.id]
+    temp += message.text
+    users[message.from_user.id] = temp
     await FSMAdmin.mail.set()
     await message.reply("Введите почту")
 
@@ -52,7 +54,7 @@ async def cm_start4(message: types.Message, state: FSMContext):
     temp += message.text
     users[message.from_user.id] = temp
     register_user(message.from_user.id, users[message.from_user.id][1], users[message.from_user.id][2], users[message.from_user.id][0], users[message.from_user.id][3])
-    del users[message.]
+    del users[message.from_user.id]
     await state.finish()
     await message.reply("Спасибо, вы зарегистрированы!")
 
