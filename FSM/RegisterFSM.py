@@ -5,6 +5,14 @@ from aiogram import types
 from create_bot import dp
 from aiogram import Dispatcher
 #  from  import cursor
+from TempUserBD import users
+
+
+"""
+dict = {
+    id = [user_id_tg, name, email, phone, where_know]
+}
+"""
 
 
 class FSMAdmin(StatesGroup):
@@ -22,6 +30,7 @@ async def cm_start(message: types.Message, state: FSMContext):
 # @dp.message_handler(state=FSMAdmin.name)
 async def cm_start2(message: types.Message, state: FSMContext):
     # message.text Сохраняем в бд (Имя)
+    users[message.from_user.id] = [message.text]
     await FSMAdmin.mail.set()
     await message.reply("Введите почту")
 
@@ -29,6 +38,9 @@ async def cm_start2(message: types.Message, state: FSMContext):
 # @dp.message_handler(state=FSMAdmin.mail)
 async def cm_start3(message: types.Message, state: FSMContext):
     # message.text Сохраняем в бд (Почта)
+    temp = users[message.from_user.id]
+    temp += message.text
+    users[message.from_user.id] = temp
     await FSMAdmin.how.set()
     await message.reply("Скажите пожалуйста, как вы узнали об этой школе?")
 
@@ -36,6 +48,9 @@ async def cm_start3(message: types.Message, state: FSMContext):
 # @dp.message_handler(state=FSMAdmin.how)
 async def cm_start4(message: types.Message, state: FSMContext):
     # message.text Сохраняем в бд (Как узнали)
+    temp = users[message.from_user.id]
+    temp += message.text
+    users[message.from_user.id] = temp
     await state.finish()
     await message.reply("Спасибо, вы зарегистрированы!")
 

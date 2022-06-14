@@ -1,5 +1,5 @@
 import time
-
+from TempUserBD import users
 from aiogram import types, Dispatcher
 from create_bot import bot
 from keyboards import client_kb
@@ -68,7 +68,9 @@ async def text(message: types.Message):
         temp = temp.replace(' ', '')
         temp = temp.replace('+7', '8')
         if len(temp) == 11 and temp[0] == '8':
+            users[message.from_user.id] = [temp]
             await bot.send_message(message.from_user.id, 'Все сохранено!)', reply_markup=client_kb.AccountMenu)
+
         elif temp[0] == '8':
             await bot.send_message(message.from_user.id, 'Что то пошло не так( Попробуйте еще раз!')
         else:
