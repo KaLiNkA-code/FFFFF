@@ -51,13 +51,7 @@ async def cm_start4(message: types.Message, state: FSMContext):
     temp = users[message.from_user.id]
     temp += message.text
     users[message.from_user.id] = temp
-    number = users[message.from_user.id][0]
-    user_id = message.from_user.id
-    name = users[message.from_user.id][1]
-    mail = users[message.from_user.id][2]
-    how = users[message.from_user.id][3]
-    register_user(user_id, name, mail, number, how)
-
+    register_user(message.from_user.id, users[message.from_user.id][1], users[message.from_user.id][2], users[message.from_user.id][0], users[message.from_user.id][3])
     await state.finish()
     await message.reply("Спасибо, вы зарегистрированы!")
 
