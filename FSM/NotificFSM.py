@@ -48,9 +48,9 @@ async def cms_start4(message: types.Message, state: FSMContext):
     await message.reply("Спасибо, вы зарегистрированы")
 
 
-# def register_user(tg_id, name, email, phone, from_where):
-#   cursor.execute("INSERT INTO USERS(user_id_tg, name, email, phone, where_know) VALUES('{0}', '{1}', '{2}', '{3}', {4});".format(tg_id, name, email, phone, from_where))
-#   return 0
+def register_user(tg_id, name, email, phone, from_where):
+    cursor.execute("INSERT INTO USERS(user_id_tg, name, email, phone, where_know) VALUES('{0}', '{1}', '{2}', '{3}', {4});".format(tg_id, name, email, phone, from_where))
+    return 0
 
 
 def register_message_handler(dp: Dispatcher):
