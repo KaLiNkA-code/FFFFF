@@ -5,12 +5,12 @@ from create_bot import bot
 from keyboards import client_kb
 from FSM.RegisterFSM import *
 from FSM.NotificFSM import *
-# from main import cursor
+from main import cursor
 
 ALL_USERS_BD = [814991257]
 admin_idBD = 814991257
 ALL_Notif = [11]
-"""//////////////////////////////////////////////////////////////////////////////////////////////////////////////////"""
+
 
 NOTIFICATIONS = {
     'text': ['photo', 'date', 'time']
@@ -32,11 +32,9 @@ async def command_start(message: types.Message):
             await bot.send_message(message.from_user.id, '👨‍🏫')
             await bot.send_message(message.from_user.id, 'Добрый день, это онлайн школа "....". '
                                                          'Пожалуйста, введите свой номер телефона,'
-                                                         ' чтобы продолжить!)')
+                                                         ' чтобы продолжить!')
     except Exception:
         await message.reply('Общение с ботом через группы - запрещено!')
-
-"""//////////////////////////////////////////////////////////////////////////////////////////////////////////////////"""
 
 
 async def OneTen(message: types.Message):
@@ -58,7 +56,7 @@ async def text(message: types.Message):
         # запрос
 
     elif message.text == 'Опрос':
-        await bot.send_message(message.from_user.id, 'Оцените наш сервис!)', reply_markup=client_kb.one_ten)
+        await bot.send_message(message.from_user.id, 'Оцените наш сервис!', reply_markup=client_kb.one_ten)
 
     elif message.text == 'Посмотреть статистику' and message.from_user.id == admin_idBD:
         await bot.send_message(message.from_user.id, 'Статистика')
@@ -75,7 +73,8 @@ async def text(message: types.Message):
             await bot.send_message(message.from_user.id, 'Что то пошло не так( Попробуйте еще раз!')
         else:
             if 1 >= int(message.text):
-                await bot.send_message(message.from_user.id, 'Спасибо за ваш отзыв! \nПостараемся работать лучше!', reply_markup=client_kb.AccountMenu)
+                await bot.send_message(message.from_user.id, 'Спасибо за ваш отзыв! \nПостараемся работать лучше!',
+                                       reply_markup=client_kb.AccountMenu)
             elif 1 < int(message.text) <= 10:
                 await bot.send_message(message.from_user.id, "Спасибо за ваш отзыв!", reply_markup=client_kb.AccountMenu)
             elif int(message.text) > 10:
@@ -97,9 +96,6 @@ async def task():
                 temp = get_ids_of_users()
                 for i in temp:
                     await bot.send_message(i, '')
-
-
-"""//////////////////////////////////////////////////////////////////////////////////////////////////////////////////"""
 
 
 def register_handlers_client(dp: Dispatcher):  # Функция регистрации хендлеров
