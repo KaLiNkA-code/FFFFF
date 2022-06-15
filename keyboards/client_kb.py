@@ -19,6 +19,19 @@ No = KeyboardButton(text='Нет', callback_data='No')
 Yes_No_kb.add(Yes, No)
 
 
+Statistic_kb = ReplyKeyboardMarkup(row_width=1)
+b1 = KeyboardButton(text='Кол-во пользователей')
+b2 = KeyboardButton(text='Кол-во новых пользователей')
+b3 = KeyboardButton(text='Сред. провождение в боте')
+Statistic_kb.add(b1, b2, b3)
+
+Statistic_kb2 = ReplyKeyboardMarkup(row_width=1)
+b1 = KeyboardButton(text='День')
+b2 = KeyboardButton(text='Неделя')
+b3 = KeyboardButton(text='Месяц')
+Statistic_kb2.add(b1, b2, b3)
+
+
 one_ten = ReplyKeyboardMarkup(row_width=2)
 b1 = KeyboardButton(text='1')
 b2 = KeyboardButton(text='2')
