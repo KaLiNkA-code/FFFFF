@@ -27,7 +27,7 @@ async def cms_start(message: types.Message, state: FSMContext):
 async def cms_start1(message: types.Message, state: FSMContext):
     global x
     #  async with state.proxy()
-    await FSMsAdmin.next()
+    await FSMsAdmin.text.set()
     await message.reply('Напишите текст')
 
 
@@ -46,11 +46,11 @@ async def cms_start3(message: types.Message, state: FSMContext):
     temp = notifications[notif_count]
     a = message.text
     a.strip(' ')
-    a, b = a.split(':')
+    a, b = a.split(' ')
     temp += [a]
     temp += [b]
     notifications[notif_count] = temp
-    await FSMsAdmin.next()
+    await FSMsAdmin.date.set()
     await message.reply("Поставьте время в формате 12:30 (час\двоеточие\минуты)")
 
 
@@ -60,7 +60,7 @@ async def cms_start4(message: types.Message, state: FSMContext):
     # message.text Сохраняем в бд (Как узнали)
     temp = notifications[x]
     a = message.text
-    a, b = a.split(' ')
+    a, b = a.split(':')
     temp += [a]
     temp += [b]
     notifications[notif_count] = temp  # ['text', 'day', 'month', 'hour', minute]
