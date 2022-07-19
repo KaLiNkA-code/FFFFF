@@ -8,5 +8,5 @@ storage = MemoryStorage()
 # Получение токена
 token = os.getenv("TOKEN")
 
-bot = Bot('5569185301:AAG-EBE1FvR1eFRq8Mlx2N-k83hYjQANo7Q')
+bot = Bot('TOKEN')
 dp = Dispatcher(bot, storage=storage)  # Инициализируем диспачер
